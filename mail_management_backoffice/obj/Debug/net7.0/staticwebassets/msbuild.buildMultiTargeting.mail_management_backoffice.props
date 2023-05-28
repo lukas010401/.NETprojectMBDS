@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\mail_management_backoffice.props" />
+</Project>

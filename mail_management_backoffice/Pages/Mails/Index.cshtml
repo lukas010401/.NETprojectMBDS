@@ -1,0 +1,96 @@
+﻿@page
+@model mail_management_backoffice.Pages.Mails.IndexModel
+
+@{
+    ViewData["Title"] = "Mails List";
+}
+
+<h1>Mails List</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].Ref)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].CreateUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].Sender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].Messenger)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].Recipient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].MailObject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].Flag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].UpdatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail[0].Comment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Mail) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ref)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateUser.NormalizedUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Messenger)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recipient)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MailObject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
