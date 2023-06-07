@@ -12,6 +12,12 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mail.CreateUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mail.CreateUser.NormalizedUserName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Mail.Ref)
         </dt>
         <dd class="col-sm-10">
@@ -28,12 +34,6 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Mail.Messenger)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Mail.Recipient)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Mail.Recipient)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Mail.MailObject)

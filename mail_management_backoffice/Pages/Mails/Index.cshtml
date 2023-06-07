@@ -1,5 +1,9 @@
 ﻿@page
 @model mail_management_backoffice.Pages.Mails.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+
 
 @{
     ViewData["Title"] = "Mails List";
@@ -10,14 +14,26 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Mail[0].Ref)
+                @Html.DisplayNameFor(model => model.Mail[0].CreateUser)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mail[0].CreateUser)
+                @Html.DisplayNameFor(model => model.Mail[0].Ref)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mail[0].Sender)
@@ -26,7 +42,7 @@
                 @Html.DisplayNameFor(model => model.Mail[0].Messenger)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mail[0].Recipient)
+                @Html.DisplayNameFor(model => model.Mail[0].Recipients)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mail[0].MailObject)
@@ -53,10 +69,10 @@
 @foreach (var item in Model.Mail) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Ref)
+                @Html.DisplayFor(modelItem => item.CreateUser.NormalizedUserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreateUser.NormalizedUserName)
+                @Html.DisplayFor(modelItem => item.Ref)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Sender)
@@ -65,8 +81,13 @@
                 @Html.DisplayFor(modelItem => item.Messenger)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Recipient)
-            </td>
+                    <ul>
+                        @foreach (var recipient in item.Recipients)
+                        {
+                            <li>@recipient.Name</li>
+                        }
+                    </ul>
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MailObject)
             </td>

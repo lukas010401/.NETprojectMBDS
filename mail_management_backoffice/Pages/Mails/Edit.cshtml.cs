@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mail_management_backoffice.Data;
 using mail_management_backoffice.Models;
+using mail_management_backoffice.Enums;
 
 namespace mail_management_backoffice.Pages.Mails
 {
@@ -43,14 +44,30 @@ namespace mail_management_backoffice.Pages.Mails
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            var mailToUpdate = _context.Mails.FirstOrDefault(m => m.ID == Mail.ID);
+
+            MailFlag previousFlag = mailToUpdate.Flag;
+            MailStatus previousStatus = mailToUpdate.Status;
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Mail).State = EntityState.Modified;
-            Mail.UpdatedDate = DateTime.UtcNow;
+            if (mailToUpdate == null)
+            {
+                _context.Attach(Mail).State = EntityState.Modified;
+            }
 
+            mailToUpdate.Flag = Mail.Flag;
+            mailToUpdate.Status = Mail.Status;
+            mailToUpdate.UpdatedDate = DateTime.UtcNow;
+            _context.Mails.Update(mailToUpdate);
+
+            ChangeHistory changeHistory = new ChangeHistory(Mail.ID, previousFlag, DateTime.Now, previousStatus, Mail.Flag, Mail.Status, mailToUpdate.CreateUserId);
+            
+            _context.ChangeHistory.Add(changeHistory);
+            
             try
             {
                 await _context.SaveChangesAsync();

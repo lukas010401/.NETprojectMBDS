@@ -26,24 +26,39 @@ namespace mail_management_backoffice.Pages.Mails
 
         public IActionResult OnGet()
         {
+            AvailableRecipients = _context.Recipient.ToList();
             return Page();
         }
 
         [BindProperty]
         public Mail Mail { get; set; }
-        
+        public List<Recipient> AvailableRecipients { get; set; }
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
           if (!ModelState.IsValid)
             {
+                AvailableRecipients = _context.Recipient.ToList();
                 return Page();
             }
 
             Mail.CreateUser = await SignInManager.UserManager.GetUserAsync(User);
             Mail.CreatedDate = DateTime.UtcNow;
             _context.Mails.Add(Mail);
+
+            foreach (var recipientId in Mail.RecipientIds)
+            {
+                var recipient = _context.Recipient.Find(recipientId);
+                
+                if (recipient != null)
+                {
+                    //recipient.Mails.Add(Mail);
+                    Mail.Recipients.Add(recipient);
+                }
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

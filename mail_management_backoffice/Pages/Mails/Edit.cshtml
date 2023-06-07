@@ -1,5 +1,7 @@
 ﻿@page
 @model mail_management_backoffice.Pages.Mails.EditModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 
 @{
     ViewData["Title"] = "Edit";
@@ -16,42 +18,59 @@
             <input type="hidden" asp-for="Mail.ID" />
             <div class="form-group">
                 <label asp-for="Mail.Ref" class="control-label"></label>
-                <input asp-for="Mail.Ref" class="form-control" />
+                <input asp-for="Mail.Ref" class="form-control" readonly  />
                 <span asp-validation-for="Mail.Ref" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Mail.Sender" class="control-label"></label>
-                <input asp-for="Mail.Sender" class="form-control" />
+                <input asp-for="Mail.Sender" class="form-control" readonly />
                 <span asp-validation-for="Mail.Sender" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Mail.Messenger" class="control-label"></label>
-                <input asp-for="Mail.Messenger" class="form-control" />
+                <input asp-for="Mail.Messenger" class="form-control" readonly />
                 <span asp-validation-for="Mail.Messenger" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label asp-for="Mail.Recipient" class="control-label"></label>
-                <input asp-for="Mail.Recipient" class="form-control" />
+                <input asp-for="Mail.Recipient" class="form-control"readonly  />
                 <span asp-validation-for="Mail.Recipient" class="text-danger"></span>
-            </div>
+            </div>-->
             <div class="form-group">
                 <label asp-for="Mail.MailObject" class="control-label"></label>
-                <input asp-for="Mail.MailObject" class="form-control" />
+                <input asp-for="Mail.MailObject" class="form-control" readonly />
                 <span asp-validation-for="Mail.MailObject" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Mail.Flag" class="control-label"></label>
-                <select asp-for="Mail.Flag" class="form-control">
-                    @foreach (var option in Enum.GetValues(typeof(Enums.MailFlag)))
-                    {
-                        <option value="@option">@option</option>
-                    }
-                </select>
-                <span asp-validation-for="Mail.Flag" class="text-danger"></span>
-            </div>
+            @if (SignInManager.UserManager.GetUserId(User).Equals(Model.Mail.CreateUserId))
+            {
+                <div class="form-group">
+                    <label asp-for="Mail.Flag" class="control-label"></label>
+                    <select asp-for="Mail.Flag" class="form-control">
+                        @foreach (var option in Enum.GetValues(typeof(Enums.MailFlag)))
+                        {
+                            <option value="@option">@option</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Mail.Flag" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="Mail.Flag" class="control-label"></label>
+                    <select asp-for="Mail.Flag" class="form-control" readonly >
+                        @foreach (var option in Enum.GetValues(typeof(Enums.MailFlag)))
+                        {
+                            <option value="@option">@option</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Mail.Flag" class="text-danger"></span>
+                </div>
+            }
+            
             <div class="form-group">
                 <label asp-for="Mail.CreatedDate" class="control-label"></label>
-                <input asp-for="Mail.CreatedDate" class="form-control" />
+                <input asp-for="Mail.CreatedDate" class="form-control" readonly />
                 <span asp-validation-for="Mail.CreatedDate" class="text-danger"></span>
             </div>
             <!--<div class="form-group">
@@ -59,22 +78,39 @@
                 <input asp-for="Mail.UpdatedDate" class="form-control" />
                 <span asp-validation-for="Mail.UpdatedDate" class="text-danger"></span>
             </div>-->
-            <div class="form-group">
-                <label asp-for="Mail.Status" class="control-label"></label>
-                <select asp-for="Mail.Status" class="form-control">
-                    @foreach (var option in Enum.GetValues(typeof(Enums.MailStatus)))
-                    {
-                        <option value="@option">@option</option>
-                    }
-                </select>
-                <span asp-validation-for="Mail.Status" class="text-danger"></span>
-            </div>
+            @if (SignInManager.UserManager.GetUserId(User).Equals(Model.Mail.CreateUserId))
+            {
+                <div class="form-group">
+                    <label asp-for="Mail.Status" class="control-label"></label>
+                    <select asp-for="Mail.Status" class="form-control">
+                        @foreach (var option in Enum.GetValues(typeof(Enums.MailStatus)))
+                        {
+                            <option value="@option">@option</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Mail.Status" class="text-danger"></span>
+                </div>                
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="Mail.Status" class="control-label"></label>
+                    <select asp-for="Mail.Status" class="form-control" readonly >
+                        @foreach (var option in Enum.GetValues(typeof(Enums.MailStatus)))
+                        {
+                            <option value="@option">@option</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Mail.Status" class="text-danger"></span>
+                </div>
+            }
+            
             <div class="form-group">
                 <label asp-for="Mail.Comment" class="control-label"></label>
-                <input asp-for="Mail.Comment" class="form-control" />
+                <input asp-for="Mail.Comment" class="form-control" readonly  />
                 <span asp-validation-for="Mail.Comment" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top : 25px">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

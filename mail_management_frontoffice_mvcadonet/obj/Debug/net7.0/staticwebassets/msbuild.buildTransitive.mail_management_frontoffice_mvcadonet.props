@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\mail_management_frontoffice_mvcadonet.props" />
+</Project>

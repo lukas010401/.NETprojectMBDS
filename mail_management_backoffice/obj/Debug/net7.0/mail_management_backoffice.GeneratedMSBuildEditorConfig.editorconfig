@@ -16,6 +16,26 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\ITU\MBDS\C#.NET - Dockers\C#.NET\project\mail_management_backoffice\mail_management_backoffice
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/ITU/MBDS/C\#.NET - Dockers/C\#.NET/project/mail_management_backoffice/mail_management_backoffice/Pages/ChangesHistory/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhbmdlc0hpc3RvcnlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU/MBDS/C\#.NET - Dockers/C\#.NET/project/mail_management_backoffice/mail_management_backoffice/Pages/ChangesHistory/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhbmdlc0hpc3RvcnlcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU/MBDS/C\#.NET - Dockers/C\#.NET/project/mail_management_backoffice/mail_management_backoffice/Pages/ChangesHistory/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhbmdlc0hpc3RvcnlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU/MBDS/C\#.NET - Dockers/C\#.NET/project/mail_management_backoffice/mail_management_backoffice/Pages/ChangesHistory/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhbmdlc0hpc3RvcnlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITU/MBDS/C\#.NET - Dockers/C\#.NET/project/mail_management_backoffice/mail_management_backoffice/Pages/ChangesHistory/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhbmdlc0hpc3RvcnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ITU/MBDS/C\#.NET - Dockers/C\#.NET/project/mail_management_backoffice/mail_management_backoffice/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

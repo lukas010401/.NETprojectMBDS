@@ -7,19 +7,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using mail_management_backoffice.Data;
 using mail_management_backoffice.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace mail_management_backoffice.Pages.Mails
 {
     public class DetailsModel : PageModel
     {
         private readonly mail_management_backoffice.Data.MailManagementContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public DetailsModel(mail_management_backoffice.Data.MailManagementContext context)
+
+        public DetailsModel(mail_management_backoffice.Data.MailManagementContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-      public Mail Mail { get; set; }
+        public Mail Mail { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,6 +33,8 @@ namespace mail_management_backoffice.Pages.Mails
             }
 
             var mail = await _context.Mails.FirstOrDefaultAsync(m => m.ID == id);
+            mail.CreateUser = await _userManager.FindByIdAsync(mail.CreateUserId);
+
             if (mail == null)
             {
                 return NotFound();

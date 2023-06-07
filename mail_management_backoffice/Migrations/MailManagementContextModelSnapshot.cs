@@ -22,6 +22,21 @@ namespace mail_management_backoffice.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MailRecipient", b =>
+                {
+                    b.Property<int>("MailID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipientID")
+                        .HasColumnType("int");
+
+                    b.HasKey("MailID", "RecipientID");
+
+                    b.HasIndex("RecipientID");
+
+                    b.ToTable("MailRecipient", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -220,6 +235,44 @@ namespace mail_management_backoffice.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("mail_management_backoffice.Models.ChangeHistory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("MailID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PreviousFlag")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PreviousStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateUserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UpdatedFlag")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpdatedStatus")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MailID");
+
+                    b.HasIndex("UpdateUserID");
+
+                    b.ToTable("ChangeHistory");
+                });
+
             modelBuilder.Entity("mail_management_backoffice.Models.Mail", b =>
                 {
                     b.Property<int>("ID")
@@ -246,9 +299,6 @@ namespace mail_management_backoffice.Migrations
                     b.Property<string>("Messenger")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Recipient")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Ref")
                         .HasColumnType("nvarchar(max)");
 
@@ -266,6 +316,37 @@ namespace mail_management_backoffice.Migrations
                     b.HasIndex("CreateUserId");
 
                     b.ToTable("Mails");
+                });
+
+            modelBuilder.Entity("mail_management_backoffice.Models.Recipient", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Recipient");
+                });
+
+            modelBuilder.Entity("MailRecipient", b =>
+                {
+                    b.HasOne("mail_management_backoffice.Models.Mail", null)
+                        .WithMany()
+                        .HasForeignKey("MailID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("mail_management_backoffice.Models.Recipient", null)
+                        .WithMany()
+                        .HasForeignKey("RecipientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -317,6 +398,23 @@ namespace mail_management_backoffice.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("mail_management_backoffice.Models.ChangeHistory", b =>
+                {
+                    b.HasOne("mail_management_backoffice.Models.Mail", "Mail")
+                        .WithMany()
+                        .HasForeignKey("MailID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdateUser")
+                        .WithMany()
+                        .HasForeignKey("UpdateUserID");
+
+                    b.Navigation("Mail");
+
+                    b.Navigation("UpdateUser");
                 });
 
             modelBuilder.Entity("mail_management_backoffice.Models.Mail", b =>
